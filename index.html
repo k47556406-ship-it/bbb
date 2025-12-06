@@ -26,7 +26,7 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        /* --- ОСНОВНІ СТИЛІ --- */
+       
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             margin: 0;
@@ -85,7 +85,7 @@
             color: var(--secondary-color);
         }
 
-        /* --- HEADER (АДАПТОВАНО) --- */
+       
         header {
             background-color: var(--primary-color);
             color: var(--secondary-color);
@@ -134,7 +134,7 @@
             animation: none; 
         }
 
-        /* --- CATALOG/PRODUCT LIST (ОНОВЛЕНО) --- */
+      
         .container {
             max-width: 1400px;
             margin: 30px auto;
@@ -147,7 +147,6 @@
             padding-bottom: 50px;
         }
 
-        /* КОНТЕЙНЕР ДЛЯ ФІЛЬТРІВ/СОРТУВАННЯ */
         #controls-container {
             display: flex;
             gap: 20px;
@@ -236,7 +235,7 @@
             background-color: #333;
         }
         
-        /* --- CHECKOUT/FORM СТИЛІ (ЗАЛИШЕНО) --- */
+      
         #checkout-view {
             display: none; 
             padding-top: 50px;
@@ -304,7 +303,7 @@
             border-top: 2px solid #000;
         }
         
-        /* --- ІНШІ СЕКЦІЇ ТА FOOTER --- */
+    
         #about-us-section, #contacts-section {
             padding: 40px;
             margin-top: 40px;
@@ -479,7 +478,7 @@
     <div id="admin-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeAdminModal()">&times;</span>
-            <h3>Админ-Панель (Демо)</h3>
+            <h3>Админ-Панель</h3>
             <p>Добавить новый товар:</p>
             <form id="admin-panel" onsubmit="addProduct(event)">
                 <label for="name">Название:</label>
@@ -527,7 +526,6 @@
             localStorage.setItem('balenciagaProducts', JSON.stringify(products));
         }
 
-        // --- НОВА ФУНКЦІЯ: СОРТУВАННЯ ТОВАРІВ ---
         function sortProducts(productList) {
             const sortMethod = document.getElementById('sort-select').value;
             
@@ -536,7 +534,7 @@
                 return productList.sort((a, b) => a.id - b.id); 
             }
             
-            let sortedList = [...productList]; // Створюємо копію для сортування
+            let sortedList = [...productList]; 
 
             switch (sortMethod) {
                 case 'price_asc':
@@ -556,7 +554,7 @@
             return sortedList;
         }
 
-        // ОНОВЛЕНО: Тепер renderProducts приймає **вже відсортований/відфільтрований** список
+  список
         function renderProducts(processedList = products) {
             const productList = document.getElementById('product-list');
             productList.innerHTML = '';
@@ -582,7 +580,7 @@
             });
         }
         
-        // ОНОВЛЕНО: Фільтрація тепер викликає сортування перед рендерингом
+       
         function filterProducts() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             
