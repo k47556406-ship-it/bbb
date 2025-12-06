@@ -10,7 +10,7 @@
             --secondary-color: #FFFFFF;
         }
 
-    
+        /* --- АНІМАЦІЇ --- */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -26,17 +26,18 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
+        /* --- ОСНОВНІ СТИЛІ --- */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             margin: 0;
             padding: 0;
-            background-color: #F8F8F8; 
+            background-color: #F8F8F8; /* Світло-сірий фон */
             color: var(--primary-color);
         }
 
-     
+        /* --- СЕКЦІЯ HERO (НОВА) --- */
         #hero-section {
-            height: 80vh;
+            height: 80vh; /* Висота екрана */
             background: var(--primary-color);
             color: var(--secondary-color);
             display: flex;
@@ -84,7 +85,7 @@
             color: var(--secondary-color);
         }
 
-       
+        /* --- HEADER (АДАПТОВАНО) --- */
         header {
             background-color: var(--primary-color);
             color: var(--secondary-color);
@@ -133,7 +134,7 @@
             animation: none; 
         }
 
-       
+        /* --- CATALOG/PRODUCT LIST (ОНОВЛЕНО) --- */
         .container {
             max-width: 1400px;
             margin: 30px auto;
@@ -146,13 +147,47 @@
             padding-bottom: 50px;
         }
 
+        /* КОНТЕЙНЕР ДЛЯ ФІЛЬТРІВ/СОРТУВАННЯ */
+        #controls-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        #search-input, #sort-select {
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        #search-input {
+            flex-grow: 1; /* Займає більшість місця */
+        }
+        
+        #sort-select {
+            width: 300px; /* Фіксована ширина для сортування */
+            flex-shrink: 0;
+            cursor: pointer;
+            background-color: #fff;
+        }
+        
+        #search-input:focus, #sort-select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        /* КІНЕЦЬ СТИЛЮ ДЛЯ ФІЛЬТРІВ/СОРТУВАННЯ */
+
         #product-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
             margin-top: 30px;
         }
-
+        
         .product-card {
             border: 1px solid #ddd;
             padding: 0;
@@ -201,7 +236,7 @@
             background-color: #333;
         }
         
-    
+        /* --- CHECKOUT/FORM СТИЛІ (ЗАЛИШЕНО) --- */
         #checkout-view {
             display: none; 
             padding-top: 50px;
@@ -256,7 +291,7 @@
             width: 100%;
             margin-top: 20px;
             transition: background-color 0.2s;
-            text-transform: uppercase; 
+            text-transform: uppercase; /* Зберегти верхній регістр */
         }
 
         .order-total {
@@ -269,6 +304,7 @@
             border-top: 2px solid #000;
         }
         
+        /* --- ІНШІ СЕКЦІЇ ТА FOOTER --- */
         #about-us-section, #contacts-section {
             padding: 40px;
             margin-top: 40px;
@@ -340,6 +376,17 @@
     <div class="container">
         <div id="main-content" class="main-section">
             <h2 id="products" class="section-padding">Нова колекція (Товари)</h2>
+            
+            <div id="controls-container">
+                <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="🔍 Пошук товарів за назвою...">
+                <select id="sort-select" onchange="filterProducts()">
+                    <option value="default">Сортувати: За замовчуванням</option>
+                    <option value="price_asc">💰 Ціна: від найменшої</option>
+                    <option value="price_desc">💵 Ціна: від найбільшої</option>
+                    <option value="name_asc">🔠 Назва: A-Z</option>
+                    <option value="name_desc">🔡 Назва: Z-A</option>
+                </select>
+            </div>
             <div id="product-list">
                 </div>
             
@@ -415,7 +462,7 @@
     </div>
     
     <footer>
-        <p>&copy; 2025 Balenciaga Store.</p>
+        <p>&copy; 2025 Balenciaga Store. Усі права захищені. (Демо)</p>
     </footer>
 
     <div id="cart-modal" class="modal">
@@ -453,12 +500,13 @@
 
     <script>
         const defaultProducts = [
-            { id: 1, name: "Кроссовки Triple S", price: 1250, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" },
-            { id: 2, name: "Худи Logo-print", price: 980, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" },
-            { id: 3, name: "Сумка Hourglass", price: 2100, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" },
-            { id: 4, name: "Джинсы Baggy Fit", price: 750, image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQqT7gP_u1T2qO3Jm3yqD4mY3h17G2Y-p_2P0Z4NqL7tK9gQ5f6g3K_R3A7L0zW6-4F-9p-Q0g0-w0g0Q5-p-Q&usqp=CAc" }, // НОВИЙ ТОВАР
-            { id: 5, name: "Сланцы Pool Slide", price: 495, image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ3pP3nL3N7V3n7Q0Q0K0mK0L0y0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" }, 
-            { id: 6, name: "Пальто Oversize", price: 3500, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" },
+            { id: 1, name: "Кроссовки Triple S", price: 1250, image: "" },
+            { id: 2, name: "Худи Logo-print", price: 980, image: "" },
+            { id: 3, name: "Сумка Hourglass", price: 2100, image: "" },
+            { id: 4, name: "Джинсы Baggy Fit", price: 750, image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQqT7gP_u1T2qO3Jm3yqD4mY3h17G2Y-p_2P0Z4NqL7tK9gQ5f6g3K_R3A7L0zW6-4F-9p-2P0Z4NqL7tK9gQ5f6g3K_R3A7L0zW6-4F-9p-Q0g0-w0g0Q5-p-Q&usqp=CAc" }, 
+            { id: 5, name: "Сланцы Pool Slide", price: 495, image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ3pP3nL3N7V3n7Q0Q0K0mK0L0y0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" }, 
+            { id: 6, name: "Пальто Oversize", price: 3500, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" }, 
+            { id: 7, name: "Кепка Logo Embroidered", price: 395, image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" }
         ];
 
         let products = JSON.parse(localStorage.getItem('balenciagaProducts')) || defaultProducts;
@@ -479,10 +527,46 @@
             localStorage.setItem('balenciagaProducts', JSON.stringify(products));
         }
 
-        function renderProducts() {
+        // --- НОВА ФУНКЦІЯ: СОРТУВАННЯ ТОВАРІВ ---
+        function sortProducts(productList) {
+            const sortMethod = document.getElementById('sort-select').value;
+            
+            if (sortMethod === 'default') {
+                // За замовчуванням: сортуємо за id
+                return productList.sort((a, b) => a.id - b.id); 
+            }
+            
+            let sortedList = [...productList]; // Створюємо копію для сортування
+
+            switch (sortMethod) {
+                case 'price_asc':
+                    sortedList.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price_desc':
+                    sortedList.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name_asc':
+                    sortedList.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'name_desc':
+                    sortedList.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+            }
+
+            return sortedList;
+        }
+
+        // ОНОВЛЕНО: Тепер renderProducts приймає **вже відсортований/відфільтрований** список
+        function renderProducts(processedList = products) {
             const productList = document.getElementById('product-list');
             productList.innerHTML = '';
-            products.forEach((product, index) => { 
+            
+            if (processedList.length === 0) {
+                productList.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 50px;">Товарів за вашим запитом не знайдено.</p>';
+                return;
+            }
+
+            processedList.forEach((product, index) => { 
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.style.animationDelay = `${index * 0.1}s`; 
@@ -497,6 +581,23 @@
                 productList.appendChild(card);
             });
         }
+        
+        // ОНОВЛЕНО: Фільтрація тепер викликає сортування перед рендерингом
+        function filterProducts() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            // 1. Фільтруємо
+            const filtered = products.filter(product => 
+                product.name.toLowerCase().includes(searchTerm)
+            );
+            
+            // 2. Сортуємо відфільтрований список
+            const sorted = sortProducts(filtered);
+            
+            // 3. Відображаємо
+            renderProducts(sorted);
+        }
+        // КІНЕЦЬ ОНОВЛЕНИХ ФУНКЦІЙ
 
         function saveCart() {
             localStorage.setItem('balenciagaCart', JSON.stringify(cart));
@@ -513,7 +614,7 @@
             }
 
             saveCart();
-            alert(`${name} добавлен в корзину!`);
+            alert(`"${name}" додано до кошика!`);
         }
 
         function removeFromCart(id) {
@@ -541,16 +642,18 @@
                     const itemTotal = item.price * item.quantity;
                     total += itemTotal;
                     const itemDiv = document.createElement('div');
+                    itemDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 5px;';
                     itemDiv.innerHTML = `
-                        <span>${item.name} (${item.quantity} шт.)</span>
-                        <span>$${itemTotal.toLocaleString()}</span>
-                        <button onclick="removeFromCart(${item.id})">Удалить</button>
+                        <span style="flex-grow: 1; font-weight: 500;">${item.name} (${item.quantity} шт.)</span>
+                        <span style="margin-right: 10px; font-weight: bold;">$${itemTotal.toLocaleString()}</span>
+                        <button onclick="removeFromCart(${item.id})" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; cursor: pointer;">&times;</button>
                     `;
                     cartItemsContainer.appendChild(itemDiv);
                 });
             }
 
             cartTotalElement.textContent = `Итого: $${total.toLocaleString()}`;
+            cartTotalElement.style.cssText = 'font-size: 1.2em; font-weight: bold; margin-top: 15px; border-top: 2px solid #000; padding-top: 10px; text-align: right;';
         }
 
         function openCartModal() {
@@ -595,6 +698,7 @@
                 total += itemTotal;
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'order-item';
+                itemDiv.style.cssText = 'display: flex; justify-content: space-between; margin-bottom: 10px;';
                 itemDiv.innerHTML = `
                     <span>${item.name} x ${item.quantity}</span>
                     <span>$${itemTotal.toLocaleString()}</span>
@@ -653,9 +757,13 @@
         function addProduct(event) {
             event.preventDefault();
 
-            const name = document.getElementById('name').value;
-            const price = parseFloat(document.getElementById('price').value);
-            const image = document.getElementById('image').value;
+            const nameInput = document.getElementById('admin-panel').querySelector('#name');
+            const priceInput = document.getElementById('admin-panel').querySelector('#price');
+            const imageInput = document.getElementById('admin-panel').querySelector('#image');
+
+            const name = nameInput.value;
+            const price = parseFloat(priceInput.value);
+            const image = imageInput.value;
 
             if (name && !isNaN(price) && price > 0) {
                 const newProduct = {
@@ -666,10 +774,12 @@
                 };
                 products.push(newProduct);
                 saveProducts();
-                renderProducts();
                 
-                alert(`Товар "${name}" добавлен!`);
-                document.getElementById('admin-panel').reset();
+                alert(`Товар "${name}" добавлен! Страница будет перезагружена для обновления каталога.`);
+                
+                nameInput.value = '';
+                priceInput.value = '';
+                
                 closeAdminModal();
                 location.reload(); 
             } else {
@@ -678,7 +788,8 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            renderProducts();
+            // Тепер викликаємо filterProducts() замість renderProducts()
+            filterProducts(); 
             updateCartCount();
         });
 
