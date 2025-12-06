@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balenciaga Store - Front-End Demo</title>
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #FFFFFF;
+        }
+
+    
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes modalSlideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            margin: 0;
+            padding: 0;
+            background-color: #F8F8F8; 
+            color: var(--primary-color);
+        }
+
+     
+        #hero-section {
+            height: 80vh;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+            margin-bottom: 50px;
+        }
+
+        .hero-content {
+            padding: 0 20px;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-size: 5em;
+            letter-spacing: 5px;
+            margin: 0;
+            line-height: 1.1;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            margin: 20px 0 40px;
+            font-weight: 300;
+        }
+
+        .hero-button {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 15px 30px;
+            border: 2px solid var(--secondary-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .hero-button:hover {
+            background-color: transparent;
+            color: var(--secondary-color);
+        }
+
+       
+        header {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            transition: color 0.5s;
+        }
+
+        nav a, nav button {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: all 0.3s; 
+            text-decoration: none;
+            display: inline-block;
+            line-height: normal;
+            font-family: inherit;
+            font-size: 1em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        nav a:hover, nav button:hover {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color); 
+            transform: none;
+            background-color: transparent;
+        }
+        
+        nav button:first-of-type {
+            animation: none; 
+        }
+
+       
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 40px; 
+            min-height: 50vh;
+        }
+        
+        .section-padding {
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        #product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 0;
+            text-align: left;
+            overflow: hidden;
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s; 
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            margin-bottom: 0;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            margin-top: 0;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .product-card button {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: 1px solid var(--primary-color);
+            padding: 12px 20px;
+            width: 100%;
+            margin-top: 15px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .product-card button:hover {
+            background-color: #333;
+        }
+        
+    
+        #checkout-view {
+            display: none; 
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        
+        .checkout-flex {
+            display: flex;
+            gap: 40px;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border: 1px solid #eee;
+        }
+        
+        .form-section, .summary-section {
+            flex: 1;
+        }
+        
+        .checkout-flex h2 {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        
+        #checkout-form label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        #checkout-form input[type="text"],
+        #checkout-form input[type="email"],
+        #checkout-form input[type="tel"],
+        #checkout-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .submit-button {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 15px 25px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+            text-transform: uppercase; 
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 2px solid #000;
+        }
+        
+        #about-us-section, #contacts-section {
+            padding: 40px;
+            margin-top: 40px;
+            border: 1px solid #eee;
+            background-color: #f9f9f9;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            animation: modalSlideDown 0.3s ease-out; 
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">BALENCIAGA</div>
+        <nav>
+            <a href="#hero-section">🏠 Головна</a>
+            <a href="#products">🛍️ Товари</a>
+            <a href="#about-us-section">ℹ️ Про нас</a>
+            <a href="#contacts-section">📞 Наші контакти</a>
+            <button onclick="openCartModal()">🛒 Корзина (<span id="cart-count">0</span>)</button>
+            <button onclick="promptAdminAccess()">🔑 Админ</button>
+        </nav>
+    </header>
+
+    <div id="hero-section">
+        <div class="hero-content">
+            <h1>New World. New Uniform.</h1>
+            <p>Відкрийте для себе найновішу колекцію, що визначає майбутнє вуличної моди. Ексклюзивно онлайн.</p>
+            <a href="#products" class="hero-button">Переглянути Товари</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div id="main-content" class="main-section">
+            <h2 id="products" class="section-padding">Нова колекція (Товари)</h2>
+            <div id="product-list">
+                </div>
+            
+            <div id="about-us-section" class="section-padding">
+                <h2>ℹ️ Про нас</h2>
+                <p><strong>BALENCIAGA: Майбутнє моди.</strong></p>
+                <p>Ми є офіційним представником світового лідера високої моди Balenciaga. Наша місія — надавати нашим клієнтам доступ до ексклюзивних колекцій та інноваційного дизайну, встановлюючи нові стандарти розкоші та стилю.</p>
+                <p>Кожен виріб, представлений у нашому магазині, є втіленням майстерності, якості та неперевершеного бачення моди, започаткованого засновником Крістобалем Баленсіагою.</p>
+            </div>
+
+            <div id="contacts-section" class="section-padding">
+                <h2>📞 Наші контакти</h2>
+                <div id="contacts">
+                    <p><strong>Адреса:</strong> 01001, м. Київ, вул. Хрещатик, 25 (Демо-адреса)</p>
+                    <p><strong>Телефон:</strong> <a href="tel:+380441234567">+38 (044) 123-45-67</a></p>
+                    <p><strong>Електронна пошта:</strong> <a href="mailto:info@balenciaga-demo.ua">info@balenciaga-demo.ua</a></p>
+                    <p><strong>Графік роботи:</strong> Пн-Пт: 10:00 - 20:00, Сб-Нд: 11:00 - 18:00</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="checkout-view">
+            <h1>🛍️ Оформлення замовлення</h1>
+             <div id="empty-cart-message" style="text-align: center; padding: 50px; display: none;">
+                <h2>🛒 Корзина пуста</h2>
+                <p>Будь ласка, <a href="#" onclick="showMainContent()">поверніться до каталогу</a>, щоб додати товари.</p>
+            </div>
+            <div class="checkout-flex" id="checkout-form-content">
+                <div class="form-section">
+                    <h2>1. Доставка та контактні дані</h2>
+                    <form id="checkout-form">
+                        <label for="name">ПІБ (повністю):</label>
+                        <input type="text" id="name" required>
+
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" required>
+
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" required>
+
+                        <label for="city">Місто:</label>
+                        <input type="text" id="city" required>
+
+                        <label for="delivery">Спосіб доставки:</label>
+                        <select id="delivery" required>
+                            <option value="nova_poshta">Нова Пошта (відділення)</option>
+                            <option value="courier">Кур'єр по місту</option>
+                            <option value="pickup">Самовивіз</option>
+                        </select>
+                        
+                        <h2>2. Спосіб оплати</h2>
+                        <label for="payment">Оплата:</label>
+                        <select id="payment" required>
+                            <option value="card">Картою на сайті (Демо)</option>
+                            <option value="cash">Оплата при отриманні</option>
+                        </select>
+
+                        <button type="submit" class="submit-button">ЗАВЕРШИТИ ЗАМОВЛЕННЯ</button>
+                    </form>
+                </div>
+
+                <div class="summary-section">
+                    <h2>Ваше замовлення</h2>
+                    <div id="order-summary-items">
+                        </div>
+                    <div class="order-total">
+                        <span>ВСЬОГО:</span>
+                        <span id="summary-total-price">$0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Balenciaga Store.</p>
+    </footer>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCartModal()">&times;</span>
+            <h3>Ваша Корзина</h3>
+            <div id="cart-items">
+            </div>
+            <div id="cart-total"></div>
+            <button onclick="showCheckoutView()" style="background-color: #000; color: #fff; padding: 10px; width: 100%; margin-top: 15px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Оформить заказ</button>
+        </div>
+    </div>
+
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAdminModal()">&times;</span>
+            <h3>Админ-Панель (Демо)</h3>
+            <p>Добавить новый товар:</p>
+            <form id="admin-panel" onsubmit="addProduct(event)">
+                <label for="name">Название:</label>
+                <input type="text" id="name" required>
+
+                <label for="price">Цена (число):</label>
+                <input type="number" id="price" required>
+
+                <label for="image">URL Изображения:</label>
+                <input type="text" id="image" value="https://via.placeholder.com/300x300?text=Balenciaga+Item" required>
+
+                <input type="submit" value="Добавить Товар">
+            </form>
+            <p style="margin-top: 20px;">Текущие товары (обновятся после перезагрузки):</p>
+            <pre id="current-products-json"></pre>
+        </div>
+    </div>
+
+    <script>
+        const defaultProducts = [
+            { id: 1, name: "Кроссовки Triple S", price: 1250, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" },
+            { id: 2, name: "Худи Logo-print", price: 980, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" },
+            { id: 3, name: "Сумка Hourglass", price: 2100, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" },
+            { id: 4, name: "Джинсы Baggy Fit", price: 750, image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQqT7gP_u1T2qO3Jm3yqD4mY3h17G2Y-p_2P0Z4NqL7tK9gQ5f6g3K_R3A7L0zW6-4F-9p-Q0g0-w0g0Q5-p-Q&usqp=CAc" }, // НОВИЙ ТОВАР
+            { id: 5, name: "Сланцы Pool Slide", price: 495, image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ3pP3nL3N7V3n7Q0Q0K0mK0L0y0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" }, 
+            { id: 6, name: "Пальто Oversize", price: 3500, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" },
+        ];
+
+        let products = JSON.parse(localStorage.getItem('balenciagaProducts')) || defaultProducts;
+        let nextProductId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+        let cart = JSON.parse(localStorage.getItem('balenciagaCart')) || [];
+        const ADMIN_CODE = "1234";
+
+        const cartModal = document.getElementById('cart-modal');
+        const adminModal = document.getElementById('admin-modal');
+        const mainContent = document.getElementById('main-content');
+        const checkoutView = document.getElementById('checkout-view');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const checkoutFormContent = document.getElementById('checkout-form-content');
+        const orderSummaryItems = document.getElementById('order-summary-items');
+        const summaryTotalPrice = document.getElementById('summary-total-price');
+
+        function saveProducts() {
+            localStorage.setItem('balenciagaProducts', JSON.stringify(products));
+        }
+
+        function renderProducts() {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = '';
+            products.forEach((product, index) => { 
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.style.animationDelay = `${index * 0.1}s`; 
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p class="price">$${product.price.toLocaleString()}</p>
+                        <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Добавить в Корзину</button>
+                    </div>
+                `;
+                productList.appendChild(card);
+            });
+        }
+
+        function saveCart() {
+            localStorage.setItem('balenciagaCart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function addToCart(id, name, price) {
+            const itemIndex = cart.findIndex(item => item.id === id);
+
+            if (itemIndex > -1) {
+                cart[itemIndex].quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+
+            saveCart();
+            alert(`${name} добавлен в корзину!`);
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            renderCart();
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+        }
+
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            cartItemsContainer.innerHTML = '';
+
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Корзина пуста.</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    const itemDiv = document.createElement('div');
+                    itemDiv.innerHTML = `
+                        <span>${item.name} (${item.quantity} шт.)</span>
+                        <span>$${itemTotal.toLocaleString()}</span>
+                        <button onclick="removeFromCart(${item.id})">Удалить</button>
+                    `;
+                    cartItemsContainer.appendChild(itemDiv);
+                });
+            }
+
+            cartTotalElement.textContent = `Итого: $${total.toLocaleString()}`;
+        }
+
+        function openCartModal() {
+            renderCart();
+            cartModal.style.display = 'block';
+        }
+
+        function closeCartModal() {
+            cartModal.style.display = 'none';
+        }
+        
+        function showMainContent() {
+            checkoutView.style.display = 'none';
+            mainContent.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showCheckoutView() {
+            closeCartModal();
+            
+            if (cart.length === 0) {
+                checkoutFormContent.style.display = 'none';
+                emptyCartMessage.style.display = 'block';
+            } else {
+                checkoutFormContent.style.display = 'flex';
+                emptyCartMessage.style.display = 'none';
+                renderCheckoutSummary();
+            }
+            
+            mainContent.style.display = 'none';
+            checkoutView.style.display = 'block';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderCheckoutSummary() {
+            orderSummaryItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'order-item';
+                itemDiv.innerHTML = `
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>$${itemTotal.toLocaleString()}</span>
+                `;
+                orderSummaryItems.appendChild(itemDiv);
+            });
+
+            summaryTotalPrice.textContent = `$${total.toLocaleString()}`;
+        }
+        
+        document.getElementById('checkout-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const delivery = document.getElementById('delivery').value;
+            
+            alert(
+                `🎉 Замовлення успішно оформлено! \n\n` +
+                `Клієнт: ${name}\n` +
+                `Телефон: ${phone}\n` +
+                `Доставка: ${delivery}\n` +
+                `СУМА: $${total.toLocaleString()}\n\n` +
+                `Дякуємо, що обрали Balenciaga Demo!`
+            );
+            
+            cart = [];
+            saveCart();
+            document.getElementById('checkout-form').reset();
+            
+            showMainContent();
+        });
+
+
+        
+
+        function openAdminModal() {
+            document.getElementById('current-products-json').textContent = JSON.stringify(products, null, 2);
+            adminModal.style.display = 'block';
+        }
+
+        function closeAdminModal() {
+            adminModal.style.display = 'none';
+        }
+
+        function promptAdminAccess() {
+            const code = prompt("Введите код доступа для Админ-Панели (код 1234):");
+            if (code === ADMIN_CODE) {
+                openAdminModal();
+            } else if (code !== null) {
+                alert("Неверный код доступа!");
+            }
+        }
+
+        function addProduct(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const image = document.getElementById('image').value;
+
+            if (name && !isNaN(price) && price > 0) {
+                const newProduct = {
+                    id: nextProductId++,
+                    name: name,
+                    price: price,
+                    image: image
+                };
+                products.push(newProduct);
+                saveProducts();
+                renderProducts();
+                
+                alert(`Товар "${name}" добавлен!`);
+                document.getElementById('admin-panel').reset();
+                closeAdminModal();
+                location.reload(); 
+            } else {
+                alert("Пожалуйста, заполните все поля корректно.");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartCount();
+        });
+
+        window.onclick = function(event) {
+            if (event.target == cartModal) {
+                closeCartModal();
+            }
+            if (event.target == adminModal) {
+                closeAdminModal();
+            }
+        }
+
+    </script>
+</body>
+</html>
