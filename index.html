@@ -900,41 +900,100 @@
                 alert("Невірний код доступу!");
             }
         }
+// ... (Ваші існуючі змінні та функції: products, nextProductId, ADMIN_CODE, saveProducts, filterProducts, updateCartCount, saveCart, loadCart, openCartModal, closeCartModal, addToCart, updateCartDisplay, removeFromCart) ...
+
+        function deleteProduct(id) {
+            // Перевіряємо, чи користувач справді хоче видалити
+            if (confirm(`Ви впевнені, що хочете видалити товар з ID: ${id}?`)) {
+                // Видаляємо товар із масиву products, залишаючи всі, крім того, 
+                // чий ID збігається з переданим
+                const initialLength = products.length;
+                products = products.filter(product => product.id !== id);
+
+                if (products.length < initialLength) {
+                    saveProducts(); // Зберігаємо оновлений список
+                    filterProducts(); // Оновлюємо відображення товарів на головній сторінці
+                    alert(`Товар з ID: ${id} успішно видалено.`);
+                    // Оновлюємо список товарів в адмін-модалі після видалення
+                    openAdminModal(); 
+                } else {
+                    alert(`Помилка: Товар з ID: ${id} не знайдено.`);
+                }
+            }
+        }
+
+        function openAdminModal() {
+            const listContainer = document.getElementById('current-products-list');
+            
+            // Генеруємо HTML для списку товарів з кнопками видалення
+            listContainer.innerHTML = '<h4>Зараз у каталозі:</h4>';
+            
+            if (products.length === 0) {
+                listContainer.innerHTML += '<p>Каталог порожній.</p>';
+            } else {
+                let html = '<ul>';
+                products.forEach(product => {
+                    // Використовуємо функцію deleteProduct для кнопки видалення
+                    html += `
+                        <li style="margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
+                            <strong>ID: ${product.id}</strong> | 
+                            ${product.name} (
+                            <span style="color: green;">${product.price} грн</span>
+                            )
+                            <button 
+                                onclick="deleteProduct(${product.id})" 
+                                style="background-color: red; color: white; border: none; padding: 5px 10px; margin-left: 15px; cursor: pointer;">
+                                Видалити
+                            </button>
+                        </li>
+                    `;
+                });
+                html += '</ul>';
+                listContainer.innerHTML += html;
+            }
+
+          
+            
+            adminModal.style.display = 'block';
+        }
+
+        function closeAdminModal() {
+            adminModal.style.display = 'none';
+        }
+
+        function promptAdminAccess() {
+            const code = prompt("Введіть код доступу для Адмін-Панелі (код 1234):");
+            // Припускаємо, що ADMIN_CODE оголошено вище
+            if (code === ADMIN_CODE) { 
+                openAdminModal();
+            } else if (code !== null) {
+                alert("Невірний код доступу!");
+            }
+        }
 
         function addProduct(event) {
             event.preventDefault();
 
-            const nameInput = document.getElementById('admin-name');
-            const priceInput = document.getElementById('admin-price');
-            const imageInput = document.getElementById('admin-image');
-
-            const name = nameInput.value;
-            const price = parseFloat(priceInput.value);
-            const image = imageInput.value;
-
+          
+       
             if (name && !isNaN(price) && price > 0) {
-                const newProduct = {
-                    id: nextProductId++,
-                    name: name,
-                    price: price,
-                    image: image
-                };
+          
                 products.push(newProduct);
                 saveProducts();
 
                 alert(`Товар "${name}" додано! Каталог буде оновлено.`);
 
-                nameInput.value = '';
-                priceInput.value = '';
-                imageInput.value = 'https://via.placeholder.com/350x350?text=NEW+BALENCIAGA+ITEM';
+                
 
-                closeAdminModal();
+                
+                openAdminModal(); 
                 filterProducts();
             } else {
                 alert("Будь ласка, заповніть всі поля коректно.");
             }
         }
 
+       
 
         document.addEventListener('DOMContentLoaded', () => {
             filterProducts();
