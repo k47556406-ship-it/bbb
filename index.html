@@ -956,58 +956,98 @@
             
             adminModal.style.display = 'block';
         }
+// --- ПРИПУЩЕННЯ (ПОТРІБНО ПЕРЕВІРИТИ/ЗАМІНИТИ) ---
+// Припускаємо, що це ваш секретний код адміністратора.
+const ADMIN_CODE = "1234"; 
 
-        function closeAdminModal() {
-            adminModal.style.display = 'none';
-        }
+// Припускаємо, що ці функції та змінні існують і оголошені десь у вашому файлі.
+// Вам потрібно забезпечити, що вони правильно визначені.
+let products = []; // Масив, де зберігаються товари
+function openAdminModal() { /* Логіка для відкриття модального вікна адміна */ }
+function closeAdminModal() { /* Логіка для закриття модального вікна адміна */ }
+function saveProducts() { /* Логіка для збереження масиву products, наприклад, у localStorage */ }
+function filterProducts() { /* Логіка для відображення товарів на сторінці */ }
+function updateCartCount() { /* Логіка для оновлення лічильника кошика */ }
+const adminModal = document.getElementById('adminModal'); // ID модального вікна адміна
+const cartModal = document.getElementById('cartModal');   // ID модального вікна кошика
+// --- КІНЕЦЬ ПРИПУЩЕНЬ ---
 
-        function promptAdminAccess() {
-            const code = prompt("Введіть код доступу для Адмін-Панелі (код 1234):");
-            // Припускаємо, що ADMIN_CODE оголошено вище
-            if (code === ADMIN_CODE) { 
-                openAdminModal();
-            } else if (code !== null) {
-                alert("Невірний код доступу!");
-            }
-        }
+/**
+ * 1. Функція перевірки коду адміністратора.
+ * - Додано запит коду у користувача (prompt).
+ * - Використовується trim() для видалення зайвих пробілів.
+ */
+function checkAdminCode() {
+    // Отримуємо код від користувача. trim() видаляє пробіли на початку та в кінці.
+    const code = prompt("Введіть код адміністратора:").trim(); 
 
-        function addProduct(event) {
-            event.preventDefault();
+    if (code === ADMIN_CODE) { 
+        openAdminModal();
+    } else if (code !== null && code !== "") { // Перевірка на null (якщо натиснули "Скасувати") та на пустий рядок
+        alert("Невірний код доступу!");
+    }
+}
 
-          
-       
-            if (name && !isNaN(price) && price > 0) {
-          
-                products.push(newProduct);
-                saveProducts();
 
-                alert(`Товар "${name}" додано! Каталог буде оновлено.`);
+function addProduct(event) {
+    event.preventDefault();
 
-                
+   
+    const nameInput = document.getElementById('productName');
+    const priceInput = document.getElementById('productPrice');
+    const imageInput = document.getElementById('productImage');
+    const descInput = document.getElementById('productDescription');
+    
+  
+    const name = nameInput ? nameInput.value.trim() : null;
+    const price = priceInput ? parseFloat(priceInput.value) : NaN; 
+    const image = imageInput ? imageInput.value.trim() : null;
+    const description = descInput ? descInput.value.trim() : null;
+    
+   
+    if (name && image && description && !isNaN(price) && price > 0) {
+        
+        // Створюємо новий об'єкт товару
+        const newProduct = {
+            id: Date.now(),
+            name: name,
+            price: price,
+            image: image,
+            description: description
+        };
 
-                
-                openAdminModal(); 
-                filterProducts();
-            } else {
-                alert("Будь ласка, заповніть всі поля коректно.");
-            }
-        }
+        products.push(newProduct);
+        saveProducts(); 
 
-       
+        alert(`Товар "${name}" додано! Каталог буде оновлено.`);
 
-        document.addEventListener('DOMContentLoaded', () => {
-            filterProducts();
-            updateCartCount();
-        });
+     
+        nameInput.value = '';
+        priceInput.value = '';
+        imageInput.value = '';
+        descInput.value = '';
+        
+        filterProducts();
 
-        window.onclick = function(event) {
-            if (event.target == cartModal) {
-                closeCartModal();
-            }
-            if (event.target == adminModal) {
-                closeAdminModal();
-            }
-        }
+    } else {
+        alert("Будь ласка, заповніть всі поля коректно. Ціна повинна бути числом > 0.");
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+    updateCartCount();
+});
+
+window.onclick = function(event) {
+    if (event.target == cartModal) {
+        closeCartModal();
+    }
+    if (event.target == adminModal) {
+        closeAdminModal();
+    }
+}
 
     </script>
 </body>
