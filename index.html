@@ -8,9 +8,9 @@
         :root {
             --primary-color: #000000;
             --secondary-color: #FFFFFF;
+            --accent-color: #E30613;
         }
 
-        /* --- АНІМАЦІЇ --- */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -26,19 +26,17 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-       
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             margin: 0;
             padding: 0;
-            background-color: #F8F8F8; /* Світло-сірий фон */
+            background-color: #F8F8F8;
             color: var(--primary-color);
         }
 
-        /* --- СЕКЦІЯ HERO (НОВА) --- */
         #hero-section {
-            height: 80vh; /* Висота екрана */
-            background: var(--primary-color);
+            height: 80vh;
+            background: url('https://via.placeholder.com/1920x800/000000/FFFFFF?text=BALENCIAGA+NEW+CAMPAIGN') center center/cover no-repeat;
             color: var(--secondary-color);
             display: flex;
             justify-content: center;
@@ -49,8 +47,9 @@
         }
 
         .hero-content {
-            padding: 0 20px;
-            max-width: 800px;
+            padding: 20px;
+            max-width: 900px;
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
         .hero-content h1 {
@@ -85,7 +84,6 @@
             color: var(--secondary-color);
         }
 
-       
         header {
             background-color: var(--primary-color);
             color: var(--secondary-color);
@@ -93,12 +91,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--primary-color);
             position: sticky;
             top: 0;
             z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
-        
+
         .logo {
             font-size: 28px;
             font-weight: 700;
@@ -113,7 +111,7 @@
             padding: 10px 15px;
             cursor: pointer;
             margin-left: 15px;
-            transition: all 0.3s; 
+            transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
             line-height: normal;
@@ -124,29 +122,107 @@
         }
 
         nav a:hover, nav button:hover {
-            color: var(--secondary-color);
-            border-bottom: 2px solid var(--secondary-color); 
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
             transform: none;
             background-color: transparent;
         }
-        
-        nav button:first-of-type {
-            animation: none; 
-        }
 
-      
         .container {
             max-width: 1400px;
             margin: 30px auto;
-            padding: 0 40px; 
+            padding: 0 40px;
             min-height: 50vh;
         }
-        
+
         .section-padding {
             padding-top: 50px;
             padding-bottom: 50px;
         }
 
+        /* ОНОВЛЕНІ СТИЛІ ДЛЯ ТОВАРІВ */
+        #product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; 
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .product-item {
+            position: relative;
+            flex: 0 0 calc(33.333% - 13.333px); 
+            max-width: 350px;
+            overflow: hidden;
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: slideUp 0.8s ease-out;
+            text-align: center;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s;
+        }
+        
+        /* СТИЛЬ ДЛЯ TAG */
+        .tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            padding: 5px 10px;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .product-info .price {
+            margin: 5px 0 15px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .add-to-cart-btn {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 10px 20px;
+            width: 90%;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: 600;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #333;
+        }
+
+        /* --- ФІЛЬТРИ/СОРТУВАННЯ --- */
         #controls-container {
             display: flex;
             gap: 20px;
@@ -162,105 +238,49 @@
             box-sizing: border-box;
             transition: border-color 0.3s;
         }
-        
+
         #search-input {
-            flex-grow: 1; /* Займає більшість місця */
+            flex-grow: 1;
         }
-        
+
         #sort-select {
-            width: 300px; /* Фіксована ширина для сортування */
+            width: 300px;
             flex-shrink: 0;
             cursor: pointer;
             background-color: #fff;
         }
-        
+
         #search-input:focus, #sort-select:focus {
             border-color: var(--primary-color);
             outline: none;
         }
-        /* КІНЕЦЬ СТИЛЮ ДЛЯ ФІЛЬТРІВ/СОРТУВАННЯ */
-
-        #product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 30px;
-        }
         
-        .product-card {
-            border: 1px solid #ddd;
-            padding: 0;
-            text-align: left;
-            overflow: hidden;
-            background-color: var(--secondary-color);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s; 
-            animation: slideUp 0.8s ease-out;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px); 
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            margin-bottom: 0;
-        }
-        
-        .product-info {
-            padding: 20px;
-        }
-        
-        .product-info h3 {
-            margin-top: 0;
-            font-size: 1.4em;
-            font-weight: 600;
-        }
-
-        .product-card button {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border: 1px solid var(--primary-color);
-            padding: 12px 20px;
-            width: 100%;
-            margin-top: 15px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .product-card button:hover {
-            background-color: #333;
-        }
-        
-      
+        /* --- СТИЛІ ДЛЯ ЧЕКАУТУ --- */
         #checkout-view {
-            display: none; 
+            display: none;
             padding-top: 50px;
             padding-bottom: 50px;
         }
-        
+
         .checkout-flex {
             display: flex;
             gap: 40px;
-            background-color: #f9f9f9;
+            background-color: #fff;
             padding: 30px;
-            border: 1px solid #eee;
+            border: 1px solid #ddd;
         }
-        
+
         .form-section, .summary-section {
             flex: 1;
         }
-        
+
         .checkout-flex h2 {
             border-bottom: 2px solid #ddd;
             padding-bottom: 10px;
             margin-top: 0;
             font-size: 24px;
         }
-        
+
         #checkout-form label {
             display: block;
             margin-top: 15px;
@@ -281,7 +301,7 @@
         }
 
         .submit-button {
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: var(--secondary-color);
             border: none;
             padding: 15px 25px;
@@ -290,7 +310,11 @@
             width: 100%;
             margin-top: 20px;
             transition: background-color 0.2s;
-            text-transform: uppercase; /* Зберегти верхній регістр */
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .submit-button:hover {
+            background-color: #A3040C;
         }
 
         .order-total {
@@ -302,15 +326,16 @@
             padding-top: 10px;
             border-top: 2px solid #000;
         }
-        
-    
+
+        /* --- СЕКЦІЇ ПРО НАС/КОНТАКТИ --- */
         #about-us-section, #contacts-section {
             padding: 40px;
             margin-top: 40px;
             border: 1px solid #eee;
-            background-color: #f9f9f9;
+            background-color: #fff;
         }
-        
+
+        /* --- МОДАЛЬНІ ВІКНА --- */
         .modal {
             display: none;
             position: fixed;
@@ -320,18 +345,47 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0,0,0,0.7);
         }
 
         .modal-content {
             background-color: #fefefe;
             margin: 10% auto;
-            padding: 20px;
+            padding: 30px;
             border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
+            width: 90%;
+            max-width: 500px;
             position: relative;
-            animation: modalSlideDown 0.3s ease-out; 
+            animation: modalSlideDown 0.3s ease-out;
+            border-radius: 5px;
+        }
+
+        .modal-content h3 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content input[type="text"],
+        .modal-content input[type="number"],
+        .modal-content input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+        }
+
+        .modal-content input[type="submit"] {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .modal-content input[type="submit"]:hover {
+            background-color: #333;
         }
 
         .close-btn {
@@ -339,14 +393,65 @@
             float: right;
             font-size: 28px;
             font-weight: bold;
+            line-height: 1;
+            cursor: pointer;
         }
 
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        /* --- ФУТЕР --- */
         footer {
             background-color: var(--primary-color);
             color: var(--secondary-color);
             text-align: center;
             padding: 20px 0;
             margin-top: 40px;
+        }
+
+        /* --- МЕДІА-ЗАПИТИ --- */
+        @media (max-width: 1200px) {
+            .product-item {
+                flex: 0 0 calc(50% - 10px); /* 2 колонки */
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .checkout-flex {
+                flex-direction: column;
+            }
+            .product-item {
+                flex: 0 0 calc(100% - 0px); /* 1 колонка */
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+            }
+            nav {
+                margin-top: 10px;
+            }
+            .logo {
+                margin-bottom: 10px;
+            }
+            .hero-content h1 {
+                font-size: 3em;
+            }
+            .container {
+                padding: 0 15px;
+            }
+            #controls-container {
+                flex-direction: column;
+            }
+            #sort-select {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -358,9 +463,9 @@
             <a href="#hero-section">🏠 Головна</a>
             <a href="#products">🛍️ Товари</a>
             <a href="#about-us-section">ℹ️ Про нас</a>
-            <a href="#contacts-section">📞 Наші контакти</a>
-            <button onclick="openCartModal()">🛒 Корзина (<span id="cart-count">0</span>)</button>
-            <button onclick="promptAdminAccess()">🔑 Админ</button>
+            <a href="#contacts-section">📞 Контакти</a>
+            <button onclick="openCartModal()">🛒 Кошик (<span id="cart-count">0</span>)</button>
+            <button onclick="promptAdminAccess()">🔑 Адмін</button>
         </nav>
     </header>
 
@@ -371,11 +476,11 @@
             <a href="#products" class="hero-button">Переглянути Товари</a>
         </div>
     </div>
-    
+
     <div class="container">
         <div id="main-content" class="main-section">
             <h2 id="products" class="section-padding">Нова колекція (Товари)</h2>
-            
+
             <div id="controls-container">
                 <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="🔍 Пошук товарів за назвою...">
                 <select id="sort-select" onchange="filterProducts()">
@@ -388,7 +493,7 @@
             </div>
             <div id="product-list">
                 </div>
-            
+
             <div id="about-us-section" class="section-padding">
                 <h2>ℹ️ Про нас</h2>
                 <p><strong>BALENCIAGA: Майбутнє моди.</strong></p>
@@ -399,35 +504,35 @@
             <div id="contacts-section" class="section-padding">
                 <h2>📞 Наші контакти</h2>
                 <div id="contacts">
-                    <p><strong>Адреса:</strong> 01001, м. Київ, вул. Хрещатик, 25 (Демо-адреса)</p>
+                    <p><strong>Адреса:</strong> 01001, м. Київ, вул. Хрещатик, 25 </p>
                     <p><strong>Телефон:</strong> <a href="tel:+380441234567">+38 (044) 123-45-67</a></p>
                     <p><strong>Електронна пошта:</strong> <a href="mailto:info@balenciaga-demo.ua">info@balenciaga-demo.ua</a></p>
                     <p><strong>Графік роботи:</strong> Пн-Пт: 10:00 - 20:00, Сб-Нд: 11:00 - 18:00</p>
                 </div>
             </div>
         </div>
-        
+
         <div id="checkout-view">
             <h1>🛍️ Оформлення замовлення</h1>
-             <div id="empty-cart-message" style="text-align: center; padding: 50px; display: none;">
-                <h2>🛒 Корзина пуста</h2>
-                <p>Будь ласка, <a href="#" onclick="showMainContent()">поверніться до каталогу</a>, щоб додати товари.</p>
+             <div id="empty-cart-message" style="text-align: center; padding: 50px; background-color: #fff; border: 1px solid #ddd; display: none;">
+                <h2>🛒 Кошик пустий</h2>
+                <p>Будь ласка, <a href="#products" onclick="showMainContent()">поверніться до каталогу</a>, щоб додати товари.</p>
             </div>
             <div class="checkout-flex" id="checkout-form-content">
                 <div class="form-section">
                     <h2>1. Доставка та контактні дані</h2>
                     <form id="checkout-form">
-                        <label for="name">ПІБ (повністю):</label>
-                        <input type="text" id="name" required>
+                        <label for="checkout-name">ПІБ:</label>
+                        <input type="text" id="checkout-name" required>
 
-                        <label for="email">E-mail:</label>
-                        <input type="email" id="email" required>
+                        <label for="checkout-email">E-mail:</label>
+                        <input type="email" id="checkout-email" required>
 
-                        <label for="phone">Телефон:</label>
-                        <input type="tel" id="phone" required>
+                        <label for="checkout-phone">Телефон:</label>
+                        <input type="tel" id="checkout-phone" required>
 
-                        <label for="city">Місто:</label>
-                        <input type="text" id="city" required>
+                        <label for="checkout-city">Місто:</label>
+                        <input type="text" id="checkout-city" required>
 
                         <label for="delivery">Спосіб доставки:</label>
                         <select id="delivery" required>
@@ -435,11 +540,11 @@
                             <option value="courier">Кур'єр по місту</option>
                             <option value="pickup">Самовивіз</option>
                         </select>
-                        
+
                         <h2>2. Спосіб оплати</h2>
                         <label for="payment">Оплата:</label>
                         <select id="payment" required>
-                            <option value="card">Картою на сайті (Демо)</option>
+                            <option value="card">Картою на сайті</option>
                             <option value="cash">Оплата при отриманні</option>
                         </select>
 
@@ -459,53 +564,61 @@
             </div>
         </div>
     </div>
-    
+
     <footer>
-        <p>&copy; 2025 Balenciaga Store. Усі права захищені. (Демо)</p>
+        <p>&copy; 2025 Balenciaga Store. Усі права захищені. Demo Version.</p>
     </footer>
 
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeCartModal()">&times;</span>
-            <h3>Ваша Корзина</h3>
+            <h3>Ваш Кошик</h3>
             <div id="cart-items">
-            </div>
+                </div>
             <div id="cart-total"></div>
-            <button onclick="showCheckoutView()" style="background-color: #000; color: #fff; padding: 10px; width: 100%; margin-top: 15px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Оформить заказ</button>
+            <button onclick="showCheckoutView()" style="background-color: var(--primary-color); color: var(--secondary-color); padding: 10px; width: 100%; margin-top: 15px; border: none; font-weight: bold; text-transform: uppercase;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">ОФОРМИТИ ЗАМОВЛЕННЯ</button>
         </div>
     </div>
 
     <div id="admin-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeAdminModal()">&times;</span>
-            <h3>Админ-Панель</h3>
-            <p>Добавить новый товар:</p>
+            <h3>Адмін-Панель (Код: 1234)</h3>
+            <p>Додати новий товар:</p>
             <form id="admin-panel" onsubmit="addProduct(event)">
-                <label for="name">Название:</label>
-                <input type="text" id="name" required>
+                <label for="admin-name">Назва:</label>
+                <input type="text" id="admin-name" required>
 
-                <label for="price">Цена (число):</label>
-                <input type="number" id="price" required>
+                <label for="admin-price">Ціна (число):</label>
+                <input type="number" id="admin-price" min="1" step="0.01" required>
 
-                <label for="image">URL Изображения:</label>
-                <input type="text" id="image" value="https://via.placeholder.com/300x300?text=Balenciaga+Item" required>
+                <label for="admin-image">URL Зображення:</label>
+                <input type="text" id="admin-image" value="https://via.placeholder.com/350x350?text=NEW+BALENCIAGA+ITEM" required>
 
-                <input type="submit" value="Добавить Товар">
+                <input type="submit" value="ДОДАТИ ТОВАР">
             </form>
-            <p style="margin-top: 20px;">Текущие товары (обновятся после перезагрузки):</p>
-            <pre id="current-products-json"></pre>
+            <p style="margin-top: 20px;">Текучі товари (JSON):</p>
+            <pre id="current-products-json" style="max-height: 200px; overflow-y: auto; background-color: #f1f1f1; padding: 10px; border-radius: 3px; font-size: 0.8em;"></pre>
         </div>
     </div>
 
     <script>
         const defaultProducts = [
-            { id: 1, name: "Кроссовки Triple S", price: 1250, image: "" },
-            { id: 2, name: "Худи Logo-print", price: 980, image: "" },
-            { id: 3, name: "Сумка Hourglass", price: 2100, image: "" },
-            { id: 4, name: "Джинсы Baggy Fit", price: 750, image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQqT7gP_u1T2qO3Jm3yqD4mY3h17G2Y-p_2P0Z4NqL7tK9gQ5f6g3K_R3A7L0zW6-4F-9p-2P0Z4NqL7tK9gQ5f6g3K_R3A7L0zW6-4F-9p-Q0g0-w0g0Q5-p-Q&usqp=CAc" }, 
-            { id: 5, name: "Сланцы Pool Slide", price: 495, image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ3pP3nL3N7V3n7Q0Q0K0mK0L0y0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" }, 
-            { id: 6, name: "Пальто Oversize", price: 3500, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" }, 
-            { id: 7, name: "Кепка Logo Embroidered", price: 395, image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q0Q&usqp=CAc" }
+            { id: 1, name: "Кросівки Triple S Black", price: 1250, image: "data:image/webp;base64,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", tag: "Hot Seller" },
+            { id: 2, name: "Худі Logo-print Oversized", price: 980, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRM6h85niEiaQgUBfM9mhPOSt4vc7w2zf-XFWLwg8Jf_UjWcY80d4jK_D7eXNhVd3WDKhViqQhuTq9Db2rmcWiv-x2c2_oPrscoQ0HU2FyvM6OJ6Lgye8CDCh8ngaUQNbvqiXWx1g&usqp=CAc" },
+            { id: 3, name: "Сумка Hourglass S Croc-effect", price: 2100, image: "https://i.pinimg.com/736x/09/b0/73/09b073e49a31874a71582b0130fbbb38.jpg", tag: "New Drop" },
+            { id: 4, name: "Джинси Baggy Fit Dark Blue", price: 750, image: "https://i.pinimg.com/736x/bd/f1/fd/bdf1fd6c0fc65a1a3fe8bb91bc102523.jpg" },
+            { id: 5, name: "Сланці Pool Slide Logo", price: 495, image: "https://i.pinimg.com/736x/4d/53/37/4d5337d5abb62b6fa2f4fa1bdee4d979.jpg" },
+            { id: 6, name: "Пальто Oversize Wool Coat", price: 3500, image: "https://i.pinimg.com/1200x/68/29/f5/6829f5920df0b31676844e265637ae8b.jpg" },
+            { id: 7, name: "Кепка Logo Embroidered White", price: 395, image: "https://i.pinimg.com/736x/52/aa/2b/52aa2b2220dd114dd345191867a0aa15.jpg" },
+            { id: 8, name: "Светр Intarsia Logo Knit", price: 1150, image: "https://i.pinimg.com/1200x/a9/b3/a2/a9b3a29a828fd2e84157755bf0b1076b.jpg" },
+            { id: 9, name: "Ботильйони Cagole 90mm", price: 1790, image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQZuy0Cmcxz4Kb2VjsYzhlYy1xSuwCdvgjwAJuPoPHcRviY9ArzYkzbaEQ5qzUHBD51KX1QQmnzR6PZpiGWL-y8ZuUPdYEZhp6zo8Fzsq14d0xag7g0QZX1OKVCPZnalQrQ0_ROjA&usqp=CAc" },
+            { id: 10, name: "Сонцезахисні окуляри Shield", price: 450, image: "https://i.pinimg.com/1200x/8d/01/da/8d01daefd795d46ab1d0fddcc27f8537.jpg" },
+            { id: 11, name: "Футболка Destroyed Logo", price: 690, image: "https://i.pinimg.com/736x/c3/2d/3e/c32d3ea400c3cd1705e5a80280a8ac77.jpg", tag: "Exclusive" },
+            { id: 12, name: "Кросівки Runner Sneaker Black", price: 1090, image: "https://i.pinimg.com/1200x/6a/70/29/6a70295d51ae5d14c635a51d503ed420.jpg" },
+            { id: 13, name: "Панама Logo Print Bucket Hat", price: 595, image: "data:image/webp;base64,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" },
+            { id: 14, name: "Светр BB Logo Knit (Сірий)", price: 1400, image: "data:image/jpeg;base64,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" },
+            { id: 15, name: "Ремінь Buckle Belt Black", price: 495, image: "https://i.pinimg.com/736x/5b/ab/da/5babda05fc67fdc012498dfd44cf0977.jpg", tag: "Must-Have" }
         ];
 
         let products = JSON.parse(localStorage.getItem('balenciagaProducts')) || defaultProducts;
@@ -521,6 +634,7 @@
         const checkoutFormContent = document.getElementById('checkout-form-content');
         const orderSummaryItems = document.getElementById('order-summary-items');
         const summaryTotalPrice = document.getElementById('summary-total-price');
+        const cartButton = document.querySelector('nav button:nth-child(5)');
 
         function saveProducts() {
             localStorage.setItem('balenciagaProducts', JSON.stringify(products));
@@ -528,13 +642,12 @@
 
         function sortProducts(productList) {
             const sortMethod = document.getElementById('sort-select').value;
-            
+
             if (sortMethod === 'default') {
-                // За замовчуванням: сортуємо за id
-                return productList.sort((a, b) => a.id - b.id); 
+                return productList.sort((a, b) => a.id - b.id);
             }
-            
-            let sortedList = [...productList]; 
+
+            let sortedList = [...productList];
 
             switch (sortMethod) {
                 case 'price_asc':
@@ -554,48 +667,45 @@
             return sortedList;
         }
 
-  список
         function renderProducts(processedList = products) {
             const productList = document.getElementById('product-list');
             productList.innerHTML = '';
-            
+
             if (processedList.length === 0) {
-                productList.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 50px;">Товарів за вашим запитом не знайдено.</p>';
+                productList.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 50px; width: 100%;">Товарів за вашим запитом не знайдено.</p>';
                 return;
             }
 
-            processedList.forEach((product, index) => { 
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.style.animationDelay = `${index * 0.1}s`; 
-                card.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}">
+            const sortedList = sortProducts(processedList);
+
+            sortedList.forEach((product, index) => {
+                const tagHtml = product.tag ? `<span class="tag">${product.tag}</span>` : '';
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'product-item';
+                itemDiv.style.animationDelay = `${index * 0.05}s`;
+                itemDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null;this.src='https://via.placeholder.com/350x350?text=Image+Not+Found'">
+                    ${tagHtml}
                     <div class="product-info">
                         <h3>${product.name}</h3>
                         <p class="price">$${product.price.toLocaleString()}</p>
-                        <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Добавить в Корзину</button>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name.replace(/'/g, "\\'")}', ${product.price})">КУПИТИ</button>
                     </div>
                 `;
-                productList.appendChild(card);
+                productList.appendChild(itemDiv);
             });
         }
-        
-       
+
+
         function filterProducts() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            
-            // 1. Фільтруємо
-            const filtered = products.filter(product => 
+
+            const filtered = products.filter(product =>
                 product.name.toLowerCase().includes(searchTerm)
             );
-            
-            // 2. Сортуємо відфільтрований список
-            const sorted = sortProducts(filtered);
-            
-            // 3. Відображаємо
-            renderProducts(sorted);
+
+            renderProducts(filtered);
         }
-        // КІНЕЦЬ ОНОВЛЕНИХ ФУНКЦІЙ
 
         function saveCart() {
             localStorage.setItem('balenciagaCart', JSON.stringify(cart));
@@ -612,13 +722,38 @@
             }
 
             saveCart();
-            alert(`"${name}" додано до кошика!`);
+
+            cartButton.style.backgroundColor = 'var(--accent-color)';
+            setTimeout(() => {
+                cartButton.style.backgroundColor = 'transparent';
+            }, 300);
+
+            alert(`"${name}" додано до кошика! (Кількість: ${cart.find(item => item.id === id).quantity})`);
+        }
+
+        function changeQuantity(id, change) {
+            const itemIndex = cart.findIndex(item => item.id === id);
+
+            if (itemIndex > -1) {
+                cart[itemIndex].quantity += change;
+
+                if (cart[itemIndex].quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    saveCart();
+                    renderCart();
+                }
+            }
         }
 
         function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
             saveCart();
             renderCart();
+
+            if (cart.length === 0 && checkoutView.style.display === 'block') {
+                showCheckoutView();
+            }
         }
 
         function updateCartCount() {
@@ -634,24 +769,34 @@
             let total = 0;
 
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p>Корзина пуста.</p>';
+                cartItemsContainer.innerHTML = '<p style="text-align: center;">Корзина пуста. Додайте щось, щоб розпочати покупку!</p>';
+                document.querySelector('#cart-modal button').disabled = true;
+                document.querySelector('#cart-modal button').style.opacity = '0.5';
             } else {
+                document.querySelector('#cart-modal button').disabled = false;
+                document.querySelector('#cart-modal button').style.opacity = '1';
+
                 cart.forEach(item => {
                     const itemTotal = item.price * item.quantity;
                     total += itemTotal;
                     const itemDiv = document.createElement('div');
-                    itemDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 5px;';
+                    itemDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;';
                     itemDiv.innerHTML = `
-                        <span style="flex-grow: 1; font-weight: 500;">${item.name} (${item.quantity} шт.)</span>
-                        <span style="margin-right: 10px; font-weight: bold;">$${itemTotal.toLocaleString()}</span>
-                        <button onclick="removeFromCart(${item.id})" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; cursor: pointer;">&times;</button>
+                        <span style="flex-grow: 1; font-weight: 500; max-width: 50%;">${item.name}</span>
+                        <div style="display: flex; align-items: center; width: 120px; justify-content: space-between;">
+                            <button onclick="changeQuantity(${item.id}, -1)" style="padding: 5px 10px; background: #eee; border: 1px solid #ccc;">-</button>
+                            <span style="font-weight: bold;">${item.quantity}</span>
+                            <button onclick="changeQuantity(${item.id}, 1)" style="padding: 5px 10px; background: #eee; border: 1px solid #ccc;">+</button>
+                        </div>
+                        <span style="margin: 0 10px; font-weight: bold; width: 80px; text-align: right;">$${itemTotal.toLocaleString()}</span>
+                        <button onclick="removeFromCart(${item.id})" style="background: var(--accent-color); color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px;">&times;</button>
                     `;
                     cartItemsContainer.appendChild(itemDiv);
                 });
             }
 
-            cartTotalElement.textContent = `Итого: $${total.toLocaleString()}`;
-            cartTotalElement.style.cssText = 'font-size: 1.2em; font-weight: bold; margin-top: 15px; border-top: 2px solid #000; padding-top: 10px; text-align: right;';
+            cartTotalElement.textContent = `ВСЬОГО ДО СПЛАТИ: $${total.toLocaleString()}`;
+            cartTotalElement.style.cssText = 'font-size: 1.3em; font-weight: bold; margin-top: 20px; border-top: 2px solid #000; padding-top: 15px; text-align: right;';
         }
 
         function openCartModal() {
@@ -662,7 +807,7 @@
         function closeCartModal() {
             cartModal.style.display = 'none';
         }
-        
+
         function showMainContent() {
             checkoutView.style.display = 'none';
             mainContent.style.display = 'block';
@@ -671,7 +816,7 @@
 
         function showCheckoutView() {
             closeCartModal();
-            
+
             if (cart.length === 0) {
                 checkoutFormContent.style.display = 'none';
                 emptyCartMessage.style.display = 'block';
@@ -680,10 +825,10 @@
                 emptyCartMessage.style.display = 'none';
                 renderCheckoutSummary();
             }
-            
+
             mainContent.style.display = 'none';
             checkoutView.style.display = 'block';
-            
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -698,41 +843,45 @@
                 itemDiv.className = 'order-item';
                 itemDiv.style.cssText = 'display: flex; justify-content: space-between; margin-bottom: 10px;';
                 itemDiv.innerHTML = `
-                    <span>${item.name} x ${item.quantity}</span>
-                    <span>$${itemTotal.toLocaleString()}</span>
+                    <span style="font-weight: 500;">${item.name}</span>
+                    <span>${item.quantity} шт. x $${item.price.toLocaleString()}</span>
+                    <span style="font-weight: bold;">$${itemTotal.toLocaleString()}</span>
                 `;
                 orderSummaryItems.appendChild(itemDiv);
             });
 
             summaryTotalPrice.textContent = `$${total.toLocaleString()}`;
         }
-        
+
         document.getElementById('checkout-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            
+
             const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const delivery = document.getElementById('delivery').value;
-            
+            const name = document.getElementById('checkout-name').value;
+            const phone = document.getElementById('checkout-phone').value;
+            const email = document.getElementById('checkout-email').value;
+            const deliveryOption = document.getElementById('delivery').options[document.getElementById('delivery').selectedIndex].text;
+            const paymentOption = document.getElementById('payment').options[document.getElementById('payment').selectedIndex].text;
+
             alert(
                 `🎉 Замовлення успішно оформлено! \n\n` +
                 `Клієнт: ${name}\n` +
-                `Телефон: ${phone}\n` +
-                `Доставка: ${delivery}\n` +
+                `Контакти: ${phone}, ${email}\n` +
+                `Доставка: ${deliveryOption}\n` +
+                `Оплата: ${paymentOption}\n` +
                 `СУМА: $${total.toLocaleString()}\n\n` +
-                `Дякуємо, що обрали Balenciaga Demo!`
+                `Дякуємо, що обрали Balenciaga Demo! Наш менеджер зв'яжеться з вами найближчим часом.`
             );
-            
+
             cart = [];
             saveCart();
             document.getElementById('checkout-form').reset();
-            
+
             showMainContent();
+
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
         });
 
-
-        
 
         function openAdminModal() {
             document.getElementById('current-products-json').textContent = JSON.stringify(products, null, 2);
@@ -744,20 +893,20 @@
         }
 
         function promptAdminAccess() {
-            const code = prompt("Введите код доступа для Админ-Панели (код 1234):");
+            const code = prompt("Введіть код доступу для Адмін-Панелі (код 1234):");
             if (code === ADMIN_CODE) {
                 openAdminModal();
             } else if (code !== null) {
-                alert("Неверный код доступа!");
+                alert("Невірний код доступу!");
             }
         }
 
         function addProduct(event) {
             event.preventDefault();
 
-            const nameInput = document.getElementById('admin-panel').querySelector('#name');
-            const priceInput = document.getElementById('admin-panel').querySelector('#price');
-            const imageInput = document.getElementById('admin-panel').querySelector('#image');
+            const nameInput = document.getElementById('admin-name');
+            const priceInput = document.getElementById('admin-price');
+            const imageInput = document.getElementById('admin-image');
 
             const name = nameInput.value;
             const price = parseFloat(priceInput.value);
@@ -772,22 +921,23 @@
                 };
                 products.push(newProduct);
                 saveProducts();
-                
-                alert(`Товар "${name}" добавлен! Страница будет перезагружена для обновления каталога.`);
-                
+
+                alert(`Товар "${name}" додано! Каталог буде оновлено.`);
+
                 nameInput.value = '';
                 priceInput.value = '';
-                
+                imageInput.value = 'https://via.placeholder.com/350x350?text=NEW+BALENCIAGA+ITEM';
+
                 closeAdminModal();
-                location.reload(); 
+                filterProducts();
             } else {
-                alert("Пожалуйста, заполните все поля корректно.");
+                alert("Будь ласка, заповніть всі поля коректно.");
             }
         }
 
+
         document.addEventListener('DOMContentLoaded', () => {
-            // Тепер викликаємо filterProducts() замість renderProducts()
-            filterProducts(); 
+            filterProducts();
             updateCartCount();
         });
 
